@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { computed, effect, signal, useSignal } from '@preact/signals-react'
+import { useComputed, effect, useSignal } from '@preact/signals-react'
 import { Counter } from './components/Counter'
 
 function App() {
@@ -14,11 +14,11 @@ function App() {
     if (countState > 10) setCountState(0)
   }, [countState])
 
-  const titleSignal = signal('Preact Signal Counter')
+  const titleSignal = useSignal('Preact Signal Counter')
   const changeTitleSignal = (newValue: string) => (titleSignal.value = newValue)
   const countSignal = useSignal(0)
   const incrementSignal = () => (countSignal.value += 1)
-  const doubleSignal = computed(() => countSignal.value * 2)
+  const doubleSignal = useComputed(() => countSignal.value * 2)
   effect(() => {
     if (countSignal.value > 10) countSignal.value = 0
   })
